@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App By Ali</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+    <!-- <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico"> -->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="css/mdb.min.css">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+
+
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAvrIb2aMGVYG5KtxlpDAKe3SeqdqS44VE",
+            authDomain: "chatapp-77478.firebaseapp.com",
+            databaseURL: "https://chatapp-77478.firebaseio.com",
+            projectId: "chatapp-77478",
+            storageBucket: "chatapp-77478.appspot.com",
+            messagingSenderId: "682788177584",
+            appId: "1:682788177584:web:d6b13fd1b31ded6ddd1d75",
+            measurementId: "G-1HMBMHLCZ3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+
+
+    <div class="chatApp container pb-3">
+
+        <div class="card mx-3 mt-3 p-3">
+            <div id="null" class="text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ36bVE3bNMnnhLM9UKP4F6bscI0OM0kNNuKQ&usqp=CAU"
+                     id="avatar" class="rounded-circle mr-3" height="50px" width="50px" alt="avatar"></div>
+            <div class="chat-content">
+                <h2><b>CHAT APPLICATION</b></h2>
+            </div>
+            <!--Modal: Login / Register Form-->
+            <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog cascading-modal" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+
+                        <!--Modal cascading tabs-->
+                        <div class="modal-c-tabs">
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i
+                                            class="fas fa-user mr-1"></i>
+                                        Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i
+                                            class="fas fa-user-plus mr-1"></i>
+                                        Register</a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panels -->
+                            <div class="tab-content">
+                                <!--Panel 7-->
+                                <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+
+                                    <!--Body-->
+                                    <div class="modal-body mb-1">
+                                        <div class="md-form form-sm mb-5">
+                                            <i class="fas fa-envelope prefix"></i>
+                                            <input type="email" id="modalLRInput10"
+                                                class="form-control form-control-sm validate">
+                                            <label data-error="wrong" data-success="right" for="modalLRInput10">Your
+                                                email</label>
+                                        </div>
+
+                                        <div class="md-form form-sm mb-4">
+                                            <i class="fas fa-lock prefix"></i>
+                                            <input type="password" id="modalLRInput11"
+                                                class="form-control form-control-sm validate">
+                                            <label data-error="wrong" data-success="right" for="modalLRInput11">Your
+                                                password</label>
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <button class="btn btn-info">Log in <i
+                                                    class="fas fa-sign-in ml-1"></i></button>
+                                            <button type="button" class="btn btn-gplus" onclick="loginGoogle()">Login
+                                                With Google</button>
+                                        </div>
+                                    </div>
+                                    <!--Footer-->
+                                    <div class="modal-footer">
+                                        <div class="options text-center text-md-right mt-1">
+                                            <p>Not a member? <a href="#" class="blue-text">Sign Up</a></p>
+                                            <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+
+                                </div>
+                                <!--/.Panel 7-->
+
+                                <!--Panel 8-->
+                                <div class="tab-pane fade" id="panel8" role="tabpanel">
+
+                                    <!--Body-->
+                                    <div class="modal-body">
+                                        <div class="md-form form-sm mb-5">
+                                            <i class="fas fa-envelope prefix"></i>
+                                            <input type="email" id="modalLRInput12"
+                                                class="form-control form-control-sm validate">
+                                            <label data-error="wrong" data-success="right" for="modalLRInput12">Your
+                                                email</label>
+                                        </div>
+
+                                        <div class="md-form form-sm mb-5">
+                                            <i class="fas fa-lock prefix"></i>
+                                            <input type="password" id="modalLRInput13"
+                                                class="form-control form-control-sm validate">
+                                            <label data-error="wrong" data-success="right" for="modalLRInput13">Your
+                                                password</label>
+                                        </div>
+
+                                        <div class="md-form form-sm mb-4">
+                                            <i class="fas fa-lock prefix"></i>
+                                            <input type="password" id="modalLRInput14"
+                                                class="form-control form-control-sm validate">
+                                            <label data-error="wrong" data-success="right" for="modalLRInput14">Repeat
+                                                password</label>
+                                        </div>
+
+                                        <div class="text-center form-sm mt-2">
+                                            <button class="btn btn-info">Sign up <i
+                                                    class="fas fa-sign-in ml-1"></i></button>
+                                        </div>
+
+                                    </div>
+                                    <!--Footer-->
+                                    <div class="modal-footer">
+                                        <div class="options text-right">
+                                            <p class="pt-1">Already have an account? <a href="#" class="blue-text">Log
+                                                    In</a></p>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-info waves-effect ml-auto"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                                <!--/.Panel 8-->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--/.Content-->
+                </div>
+            </div>
+            <!--Modal: Login / Register Form-->
+
+            <div class="text-center d-flex d-flex justify-content-center">
+                <a href="" class="btn btn-default btn-rounded my-3" data-toggle="modal" data-target="#modalLRForm">Get
+                    Started</a>
+                    <a href="" class="btn btn-default btn-rounded my-3">Log Out</a>
+                    
+            </div>
+            <!-- <div class="chat-content">
+                <fieldset>
+                    <h3>Login or Signup</h3>
+                    <form>
+                        <input placeholder="username or email" type="text"></input></br></br>
+                        <input placeholder="password" type="password"></input><br></br>
+                        <input type="submit" value="Enter"><br><br>
+                        <div class="separate">
+                            <hr><b>or</b>
+                            <hr>
+                        </div>
+                        <br><br>
+                        <button>With Facebook</button>
+                        <button>With Google</button>
+                    </form>
+                </fieldset>
+            </div> -->
+
+        </div>
+        <div class="bar">
+            <!-- <div class="card m-3 p-3"> -->
+            <div class="container ">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 mt-3">
+                        <div class="card p-3" style="height: 435px;">
+                            <h5 class="text-center">Contacts</h5>
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name/Email</th>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#addContactForm">Add
+                                                    Contact</button></td>
+                                            <div class="modal fade" id="addContactForm" tabindex="-1" role="dialog"
+                                                aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h4 class="modal-title w-100 font-weight-bold">Add Contact
+                                                            </h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body mx-3">
+                                                            <div class="md-form mb-5">
+                                                                <i class="fas fa-user prefix grey-text"></i>
+                                                                <input type="text" id="addUser"
+                                                                    class="form-control validate" required>
+                                                                <label data-error="wrong" data-success="right"
+                                                                    for="form3">Name</label>
+                                                            </div>
+
+                                                            <div class="md-form mb-4">
+                                                                <i class="fas fa-envelope prefix grey-text"></i>
+                                                                <input type="email" id="addEmail"
+                                                                    class="form-control validate" required>
+                                                                <label data-error="wrong" data-success="right"
+                                                                    for="form2">Email</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-center">
+                                                            <button class="btn btn-indigo" onclick="addContact()">Add <i
+                                                                    class="fas fa-paper-plane-o ml-1"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </thead>
+                                    <tbody id="listContact">
+
+                                        <!-- <tr>
+                                            <td><a onclick="displayName(this)">Mark</a></td>
+                                        </tr> -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8">
+                        <div class="card mt-3">
+                            <h5 class="text-center pt-3">Messages</h5>
+                            <!-- <div class="messages px-3 m-3 overflow-auto card bg-primary"> -->
+                            <div id="" class="col-sm-3 col-md-6 col-lg-9 mt-1 pl-3">
+                                <p id="display">To : <span id="toDisplayName">Unknown</span></p>
+                            </div>
+
+                            <div id="messageBox"
+                                class="overflow-auto d-flex flex-column align-items-end px-5"
+                                style="height: 270px;">
+                                <!-- <div class=""> -->
+                                    <p class="bg-secondary text-white align-self-start justify-content-start p-2" style="border-radius: 10px;"
+                                        id="getMessages">
+                                        Hello !
+                                    </p>
+                                    <p class="bg-secondary align-self-start justify-content-start text-white p-2"
+                                        style="border-radius: 10px;" id="getMessages"> Hi ! Lorem ipsum dolor sit amet
+                                    </p>
+                                <!-- </div> -->
+                                <p class="bg-primary d-flex justify-content-end text-white p-2"
+                                    style="border-radius: 10px;" id="showMessages"> Hello !
+                                </p>
+                                <p class="bg-primary d-flex justify-content-end text-white p-2"
+                                    style="border-radius: 10px;" id="showMessages"> Hi ! Lorem ipsum dolor sit amet
+                                    consectetur adipisicing elit. Sint rem maiores ipsam, deserunt quis mollitia maxime
+                                </p>
+                            </div>
+
+                            <div class="d-flex align-items-end flex-row justify-content-center p-2 px-3">
+                                <div class=" md-form mb-0" style="width: 100%;">
+                                    <textarea type="text" id="sendMessages" name="message" rows="1"
+                                        class="form-control md-textarea" ></textarea>
+                                    <label for="message">Your message</label>
+                                </div>
+                                <div class="d-flex">
+                                    <button type="button" class="btn btn-primary btn-sm rounded-pill"
+                                        onclick="displayMessage()">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>
+</body>
+
+<script src="app.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script> -->
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Your custom scripts (optional) -->
+
+
+
+</html>
